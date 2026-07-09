@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Inventra | Sales</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet" href="sales.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<i class="fa-solid fa-cubes-stacked"></i>
+
+<h2>Inventra</h2>
+
+</div>
+
+<ul>
+
+<li onclick="location.href='dashboard.html'">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Dashboard</span>
+
+</li>
+
+<li onclick="location.href='products.html'">
+
+<i class="fa-solid fa-box"></i>
+
+<span>Products</span>
+
+</li>
+
+<li onclick="location.href='inventory.html'">
+
+<i class="fa-solid fa-warehouse"></i>
+
+<span>Inventory</span>
+
+</li>
+
+<li onclick="location.href='suppliers.html'">
+
+<i class="fa-solid fa-truck"></i>
+
+<span>Suppliers</span>
+
+</li>
+
+<li class="active">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>Sales</span>
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-chart-column"></i>
+
+<span>Reports</span>
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-gear"></i>
+
+<span>Settings</span>
+
+</li>
+
+</ul>
+
+</aside>
+
+<div class="main">
+
+<header>
+
+<div>
+
+<h1>Sales</h1>
+
+<p>Manage customer sales</p>
+
+</div>
+
+<button id="newSale">
+
+<i class="fa-solid fa-plus"></i>
+
+New Sale
+
+</button>
+
+</header>
+
+<div class="search">
+
+<i class="fa-solid fa-magnifying-glass"></i>
+
+<input type="text" placeholder="Search sales">
+
+</div>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Invoice</th>
+
+<th>Customer</th>
+
+<th>Product</th>
+
+<th>Quantity</th>
+
+<th>Total</th>
+
+<th>Date</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>INV001</td>
+
+<td>Rahul Sharma</td>
+
+<td>HP Laptop</td>
+
+<td>2</td>
+
+<td>₹110000</td>
+
+<td>04-07-2026</td>
+
+<td><span class="completed">Completed</span></td>
+
+</tr>
+
+<tr>
+
+<td>INV002</td>
+
+<td>Priya Das</td>
+
+<td>Wireless Mouse</td>
+
+<td>5</td>
+
+<td>₹4500</td>
+
+<td>06-07-2026</td>
+
+<td><span class="pending">Pending</span></td>
+
+</tr>
+
+<tr>
+
+<td>INV003</td>
+
+<td>Aman Singh</td>
+
+<td>Keyboard</td>
+
+<td>3</td>
+
+<td>₹2400</td>
+
+<td>07-07-2026</td>
+
+<td><span class="completed">Completed</span></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="sales.js"></script>
+
+</body>
+
+</html>

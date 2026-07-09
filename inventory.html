@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Inventra | Inventory</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<link rel="stylesheet" href="inventory.css">
+
+</head>
+
+<body>
+
+<div class="container">
+
+<aside class="sidebar">
+
+<div class="logo">
+
+<i class="fa-solid fa-cubes-stacked"></i>
+
+<h2>Inventra</h2>
+
+</div>
+
+<ul>
+
+<li onclick="location.href='dashboard.html'">
+
+<i class="fa-solid fa-house"></i>
+
+<span>Dashboard</span>
+
+</li>
+
+<li onclick="location.href='products.html'">
+
+<i class="fa-solid fa-box"></i>
+
+<span>Products</span>
+
+</li>
+
+<li class="active">
+
+<i class="fa-solid fa-warehouse"></i>
+
+<span>Inventory</span>
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-truck"></i>
+
+<span>Suppliers</span>
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<span>Sales</span>
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-chart-column"></i>
+
+<span>Reports</span>
+
+</li>
+
+<li>
+
+<i class="fa-solid fa-gear"></i>
+
+<span>Settings</span>
+
+</li>
+
+</ul>
+
+</aside>
+
+<div class="main">
+
+<header>
+
+<div>
+
+<h1>Inventory</h1>
+
+<p>Monitor stock availability</p>
+
+</div>
+
+</header>
+
+<section class="cards">
+
+<div class="card">
+
+<h3>Total Stock</h3>
+
+<h2>4,250</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Low Stock</h3>
+
+<h2>18</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Out of Stock</h3>
+
+<h2>5</h2>
+
+</div>
+
+<div class="card">
+
+<h3>Total Value</h3>
+
+<h2>₹9.5L</h2>
+
+</div>
+
+</section>
+
+<div class="table-container">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>SKU</th>
+
+<th>Product</th>
+
+<th>Available</th>
+
+<th>Minimum</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
+<tbody>
+
+<tr>
+
+<td>LAP001</td>
+
+<td>HP Laptop</td>
+
+<td>125</td>
+
+<td>20</td>
+
+<td><span class="available">In Stock</span></td>
+
+</tr>
+
+<tr>
+
+<td>MON002</td>
+
+<td>Monitor</td>
+
+<td>18</td>
+
+<td>25</td>
+
+<td><span class="low">Low Stock</span></td>
+
+</tr>
+
+<tr>
+
+<td>KEY003</td>
+
+<td>Keyboard</td>
+
+<td>0</td>
+
+<td>15</td>
+
+<td><span class="out">Out of Stock</span></td>
+
+</tr>
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<script src="inventory.js"></script>
+
+</body>
+
+</html>
