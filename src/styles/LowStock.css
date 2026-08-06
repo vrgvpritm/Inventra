@@ -1,0 +1,170 @@
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Poppins",sans-serif;
+}
+
+body{
+    background:#f1f5f9;
+    color:#1e293b;
+}
+
+.container{
+    display:flex;
+    min-height:100vh;
+}
+
+.main{
+    flex:1;
+    margin-left:270px;
+    padding:35px;
+}
+
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:30px;
+}
+
+header h1{
+    font-size:34px;
+    color:#0f172a;
+}
+
+header p{
+    color:#64748b;
+    margin-top:6px;
+}
+
+.table-container{
+    background:#fff;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 12px 30px rgba(15,23,42,.08);
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+thead{
+    background:#eff6ff;
+}
+
+thead th{
+    padding:18px;
+    text-align:left;
+    color:#2563eb;
+    font-size:14px;
+    font-weight:600;
+}
+
+tbody td{
+    padding:18px;
+    border-bottom:1px solid #e2e8f0;
+    font-size:14px;
+    transition:.3s;
+}
+
+tbody tr{
+    transition:.3s;
+}
+
+tbody tr:hover{
+    background:#f8fafc;
+}
+.low-stock{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:#fee2e2;
+    color:#dc2626;
+    padding:8px 14px;
+    border-radius:20px;
+    font-size:13px;
+    font-weight:600;
+}
+
+.low-stock svg{
+    font-size:14px;
+}
+
+.empty{
+    text-align:center;
+    padding:40px;
+    color:#64748b;
+    font-size:16px;
+    font-weight:500;
+}
+
+.table-container::-webkit-scrollbar{
+    height:8px;
+}
+
+.table-container::-webkit-scrollbar-thumb{
+    background:#cbd5e1;
+    border-radius:20px;
+}
+
+.table-container::-webkit-scrollbar-track{
+    background:#f8fafc;
+}
+
+tbody tr:hover td{
+    color:#0f172a;
+}
+
+@media(max-width:900px){
+
+    .main{
+        margin-left:90px;
+        padding:30px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .main{
+        margin-left:0;
+        padding:20px;
+    }
+
+    .table-container{
+        overflow-x:auto;
+    }
+
+    table{
+        min-width:800px;
+    }
+
+    header h1{
+        font-size:28px;
+    }
+
+}
+
+@media(max-width:500px){
+
+    .main{
+        padding:15px;
+    }
+
+    header h1{
+        font-size:24px;
+    }
+
+    header p{
+        font-size:14px;
+    }
+
+    thead th,
+    tbody td{
+        padding:14px;
+        font-size:13px;
+    }
+
+}

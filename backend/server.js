@@ -7,13 +7,17 @@ require("./config/db");
 
 const productRoutes = require("./routes/productRoutes");
 const authRoutes = require("./routes/authRoutes");
-
+const inventoryRoutes = require("./routes/inventoryRoutes");
+const supplierRoutes = require("./routes/supplierRoutes");
+const salesRoutes = require("./routes/salesRoutes");
+const dashboardRoutes = require("./routes/dashboardRoutes");
+const reportRoutes = require("./routes/reportRoutes");
+const lowStockRoutes = require("./routes/lowStockRoutes");
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
 app.use(
     session({
         secret: process.env.SESSION_SECRET,
@@ -24,7 +28,12 @@ app.use(
 
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
-
+app.use("/api/inventory", inventoryRoutes);
+app.use("/api/suppliers", supplierRoutes);
+app.use("/api/sales", salesRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/reports", reportRoutes);
+app.use("/api/low-stock", lowStockRoutes);
 app.get("/", (req, res) => {
     res.send("Inventra Backend Running");
 });

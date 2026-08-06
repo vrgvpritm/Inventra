@@ -29,6 +29,24 @@ exports.getProducts = (req, res) => {
 
 };
 
+exports.searchProducts = (req, res) => {
+
+    const keyword = "%" + req.query.q + "%";
+
+    db.query(
+        "SELECT * FROM products WHERE name LIKE ? OR sku LIKE ?",
+        [keyword, keyword],
+        (err, result) => {
+
+            if (err) return res.status(500).json(err);
+
+            res.json(result);
+
+        }
+    );
+
+};
+
 exports.getProduct = (req, res) => {
 
     db.query(
@@ -46,6 +64,7 @@ exports.getProduct = (req, res) => {
     );
 
 };
+
 
 exports.addProduct = (req, res) => {
 
@@ -155,5 +174,6 @@ exports.deleteProduct = (req, res) => {
 
         }
     );
+    
 
 };
