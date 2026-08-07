@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-require("dotenv").config();
 
+require("dotenv").config();
 require("./config/db");
 
 const productRoutes = require("./routes/productRoutes");
@@ -12,11 +12,14 @@ const salesRoutes = require("./routes/salesRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const lowStockRoutes = require("./routes/lowStockRoutes");
 const profileRoutes = require("./routes/profileRoutes");
+
 const app = express();
 
 app.use(cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 app.use("/api/products", productRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/inventory", inventoryRoutes);
@@ -25,6 +28,7 @@ app.use("/api/sales", salesRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/low-stock", lowStockRoutes);
 app.use("/api/profile", profileRoutes);
+
 app.get("/", (req, res) => {
     res.send("Inventra Backend Running");
 });

@@ -13,7 +13,7 @@ const connection = mysql.createConnection({
 
 connection.connect((err) => {
     if (err) {
-        console.log("Database Error:", err);
+        console.error("Database Error:", err);
     } else {
         console.log("Aiven MySQL Connected");
     }
