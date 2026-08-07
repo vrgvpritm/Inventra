@@ -102,12 +102,9 @@ export default function Login() {
 
                     <div className="brand">
 
-                        <div className="logo">
-
-                            <FaCubesStacked />
-
-                        </div>
-
+                        <div className="login-logo">
+    <FaCubesStacked />
+</div>
                         <h1>Inventra</h1>
 
                         <p>Inventory Management System</p>
