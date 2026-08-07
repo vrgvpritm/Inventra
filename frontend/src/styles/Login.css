@@ -100,16 +100,15 @@ body{
 .brand h1{
     font-size:58px;
     font-weight:700;
-    color:#ffffff;
+    color:#0f172a;
     margin-bottom:10px;
 }
-
 .brand p{
-    font-size:18px;
-    color:#dbeafe;
+    font-size:19px;
+    color:#334155;
     line-height:1.8;
+    font-weight:500;
 }
-
 .features{
     margin-top:50px;
     display:grid;
@@ -121,40 +120,22 @@ body{
     align-items:center;
     gap:18px;
     padding:18px 22px;
-    background:rgba(255,255,255,.15);
-    backdrop-filter:blur(15px);
+    background:rgba(255,255,255,0.92);
     border-radius:18px;
-    border:1px solid rgba(255,255,255,.2);
+    box-shadow:0 12px 30px rgba(0,0,0,.08);
     transition:.3s;
 }
 
 .feature:hover{
     transform:translateX(8px);
-    background:rgba(255,255,255,.25);
+    box-shadow:0 18px 40px rgba(37,99,235,.18);
 }
 
-.feature svg{
-    width:58px;
-    height:58px;
-    padding:15px;
-    border-radius:16px;
-    background:#ffffff;
-    color:#2563eb;
-    box-shadow:0 10px 25px rgba(0,0,0,0.18);
-    flex-shrink:0;
-    transition:0.3s ease;
-}
-
-.feature:hover svg{
-    transform:scale(1.08);
-    background:#f8fbff;
-}
 
 .feature span{
-    color:#ffffff;
+    color:#1e293b;
     font-size:17px;
     font-weight:600;
-    letter-spacing:.3px;
 }
 
 .right{
