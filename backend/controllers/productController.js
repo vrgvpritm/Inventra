@@ -65,6 +65,8 @@ exports.getProduct = (req, res) => {
 
 };
 
+console.log(req.body);
+
 
 exports.addProduct = (req, res) => {
 

@@ -1,244 +1,221 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import {
-  FaCubesStacked,
-  FaHouse,
-  FaBox,
-  FaWarehouse,
-  FaTruck,
-  FaCartShopping,
-  FaChartColumn,
-  FaGear
-} from "react-icons/fa6";
-import "./Inventory.css";
+import MainLayout from "../layouts/MainLayout";
+import Navbar from "../components/Navbar";
+import api from "../api/axios";
+import "../styles/Inventory.css";
 
 export default function Inventory() {
 
-  const [inventory, setInventory] = useState([]);
-  const [stats, setStats] = useState({
-    totalStock: 0,
-    lowStock: 0,
-    outOfStock: 0,
-    totalValue: 0
-  });
-
-  useEffect(() => {
-    fetchInventory();
-  }, []);
-
-  const fetchInventory = async () => {
-    try {
-
-      const res = await axios.get(
-        "http://localhost:5000/api/inventory"
-      );
-
-      setInventory(res.data);
-
-      let totalStock = 0;
-      let lowStock = 0;
-      let outOfStock = 0;
-      let totalValue = 0;
-
-      res.data.forEach(item => {
-
-        totalStock += Number(item.stock);
-
-        totalValue += Number(item.stock) * Number(item.price);
+    const [inventory, setInventory] = useState([]);
 
-        if (item.stock === 0) outOfStock++;
-
-        else if (item.stock <= item.minimum_stock)
-          lowStock++;
+    const [stats, setStats] = useState({
+        totalStock: 0,
+        lowStock: 0,
+        outOfStock: 0,
+        totalValue: 0
+    });
 
-      });
-
-      setStats({
-        totalStock,
-        lowStock,
-        outOfStock,
-        totalValue
-      });
-
-    } catch (err) {
-      console.log(err);
-    }
-  };
-
-  return (
+    useEffect(() => {
 
-<div className="container">
+        fetchInventory();
 
-<aside className="sidebar">
+    }, []);
 
-<div className="logo">
-<FaCubesStacked />
-<h2>Inventra</h2>
-</div>
+    const fetchInventory = async () => {
 
-<ul>
+        try {
 
-<li>
-<Link to="/dashboard">
-<FaHouse />
-<span>Dashboard</span>
-</Link>
-</li>
+            const res = await api.get("/inventory");
 
-<li>
-<Link to="/products">
-<FaBox />
-<span>Products</span>
-</Link>
-</li>
+            setInventory(res.data);
 
-<li className="active">
-<Link to="/inventory">
-<FaWarehouse />
-<span>Inventory</span>
-</Link>
-</li>
+            let totalStock = 0;
+            let lowStock = 0;
+            let outOfStock = 0;
+            let totalValue = 0;
 
-<li>
-<Link to="/suppliers">
-<FaTruck />
-<span>Suppliers</span>
-</Link>
-</li>
+            res.data.forEach(item => {
 
-<li>
-<Link to="/sales">
-<FaCartShopping />
-<span>Sales</span>
-</Link>
-</li>
+                totalStock += Number(item.stock);
 
-<li>
-<Link to="/reports">
-<FaChartColumn />
-<span>Reports</span>
-</Link>
-</li>
+                totalValue += Number(item.stock) * Number(item.price);
 
-<li>
-<Link to="#">
-<FaGear />
-<span>Settings</span>
-</Link>
-</li>
+                if (Number(item.stock) === 0) {
 
-</ul>
+                    outOfStock++;
 
-</aside>
+                }
 
-<div className="main">
+                else if (Number(item.stock) <= Number(item.minimum_stock)) {
 
-<header>
+                    lowStock++;
 
-<div>
-<h1>Inventory</h1>
-<p>Monitor stock availability</p>
-</div>
+                }
 
-</header>
+            });
 
-<section className="cards">
+            setStats({
+                totalStock,
+                lowStock,
+                outOfStock,
+                totalValue
+            });
 
-<div className="card">
-<h3>Total Stock</h3>
-<h2>{stats.totalStock}</h2>
-</div>
+        }
 
-<div className="card">
-<h3>Low Stock</h3>
-<h2>{stats.lowStock}</h2>
-</div>
+        catch (err) {
 
-<div className="card">
-<h3>Out of Stock</h3>
-<h2>{stats.outOfStock}</h2>
-</div>
+            console.log(err);
 
-<div className="card">
-<h3>Total Value</h3>
-<h2>₹{stats.totalValue.toLocaleString()}</h2>
-</div>
+        }
 
-</section>
+    };
 
-<div className="table-container">
+    return (
 
-<table>
+        <MainLayout>
 
-<thead>
+            <Navbar
+                title="Inventory"
+                subtitle="Monitor stock availability"
+            />
 
-<tr>
-<th>SKU</th>
-<th>Product</th>
-<th>Available</th>
-<th>Minimum</th>
-<th>Status</th>
-</tr>
+            <section className="cards">
 
-</thead>
+                <div className="card">
 
-<tbody>
+                    <h3>Total Stock</h3>
 
-{inventory.map(item=>{
+                    <h2>{stats.totalStock}</h2>
 
-let statusClass="available";
-let statusText="In Stock";
+                </div>
 
-if(item.stock===0){
+                <div className="card">
 
-statusClass="out";
-statusText="Out of Stock";
+                    <h3>Low Stock</h3>
 
-}
-else if(item.stock<=item.minimum_stock){
+                    <h2>{stats.lowStock}</h2>
 
-statusClass="low";
-statusText="Low Stock";
+                </div>
 
-}
+                <div className="card">
 
-return(
+                    <h3>Out of Stock</h3>
 
-<tr key={item.id}>
+                    <h2>{stats.outOfStock}</h2>
 
-<td>{item.sku}</td>
+                </div>
 
-<td>{item.name}</td>
+                <div className="card">
 
-<td>{item.stock}</td>
+                    <h3>Total Value</h3>
 
-<td>{item.minimum_stock}</td>
+                    <h2>
 
-<td>
+                        ₹{stats.totalValue.toLocaleString()}
 
-<span className={statusClass}>
-{statusText}
-</span>
+                    </h2>
 
-</td>
+                </div>
 
-</tr>
+            </section>
 
-);
+            <div className="table-container">
 
-})}
+                <table>
 
-</tbody>
+                    <thead>
 
-</table>
+                        <tr>
 
-</div>
+                            <th>SKU</th>
+                            <th>Product</th>
+                            <th>Available</th>
+                            <th>Minimum</th>
+                            <th>Status</th>
 
-</div>
+                        </tr>
 
-</div>
+                    </thead>
 
-  );
+                    <tbody>
+
+                        {
+
+                            inventory.length > 0 ?
+
+                                inventory.map(item => {
+
+                                    let statusClass = "available";
+                                    let statusText = "In Stock";
+
+                                    if (Number(item.stock) === 0) {
+
+                                        statusClass = "out";
+                                        statusText = "Out of Stock";
+
+                                    }
+
+                                    else if (Number(item.stock) <= Number(item.minimum_stock)) {
+
+                                        statusClass = "low";
+                                        statusText = "Low Stock";
+
+                                    }
+
+                                    return (
+
+                                        <tr key={item.id}>
+
+                                            <td>{item.sku}</td>
+
+                                            <td>{item.name}</td>
+
+                                            <td>{item.stock}</td>
+
+                                            <td>{item.minimum_stock}</td>
+
+                                            <td>
+
+                                                <span className={statusClass}>
+
+                                                    {statusText}
+
+                                                </span>
+
+                                            </td>
+
+                                        </tr>
+
+                                    );
+
+                                })
+
+                                :
+
+                                <tr>
+
+                                    <td
+                                        colSpan="5"
+                                        className="loading"
+                                    >
+
+                                        No Inventory Found
+
+                                    </td>
+
+                                </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </MainLayout>
+
+    );
 
 }

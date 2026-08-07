@@ -99,23 +99,6 @@ header p{
     color:#64748b;
 }
 
-#newSale{
-    border:none;
-    background:#2563eb;
-    color:#fff;
-    padding:14px 24px;
-    border-radius:12px;
-    cursor:pointer;
-    font-size:15px;
-    font-weight:600;
-    transition:.3s;
-}
-
-#newSale:hover{
-    background:#1d4ed8;
-    transform:translateY(-3px);
-}
-
 .search{
     display:flex;
     align-items:center;

@@ -10,39 +10,16 @@ body{
     color:#1e293b;
 }
 
-.container{
-    display:flex;
-    min-height:100vh;
-}
-
 .main{
     flex:1;
-    margin-left:270px;
     padding:35px;
-}
-
-header{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin-bottom:30px;
-}
-
-header h1{
-    font-size:34px;
-    color:#0f172a;
-}
-
-header p{
-    color:#64748b;
-    margin-top:6px;
 }
 
 .table-container{
     background:#fff;
     border-radius:20px;
     overflow:hidden;
-    box-shadow:0 12px 30px rgba(15,23,42,.08);
+    box-shadow:0 12px 35px rgba(15,23,42,.08);
 }
 
 table{
@@ -66,7 +43,6 @@ tbody td{
     padding:18px;
     border-bottom:1px solid #e2e8f0;
     font-size:14px;
-    transition:.3s;
 }
 
 tbody tr{
@@ -76,23 +52,17 @@ tbody tr{
 tbody tr:hover{
     background:#f8fafc;
 }
-.low-stock{
-    display:inline-flex;
-    align-items:center;
-    gap:8px;
+
+.low{
     background:#fee2e2;
     color:#dc2626;
-    padding:8px 14px;
+    padding:7px 14px;
     border-radius:20px;
     font-size:13px;
     font-weight:600;
 }
 
-.low-stock svg{
-    font-size:14px;
-}
-
-.empty{
+.loading{
     text-align:center;
     padding:40px;
     color:#64748b;
@@ -100,28 +70,10 @@ tbody tr:hover{
     font-weight:500;
 }
 
-.table-container::-webkit-scrollbar{
-    height:8px;
-}
-
-.table-container::-webkit-scrollbar-thumb{
-    background:#cbd5e1;
-    border-radius:20px;
-}
-
-.table-container::-webkit-scrollbar-track{
-    background:#f8fafc;
-}
-
-tbody tr:hover td{
-    color:#0f172a;
-}
-
 @media(max-width:900px){
 
     .main{
-        margin-left:90px;
-        padding:30px;
+        padding:25px;
     }
 
 }
@@ -129,7 +81,6 @@ tbody tr:hover td{
 @media(max-width:768px){
 
     .main{
-        margin-left:0;
         padding:20px;
     }
 
@@ -138,33 +89,7 @@ tbody tr:hover td{
     }
 
     table{
-        min-width:800px;
-    }
-
-    header h1{
-        font-size:28px;
-    }
-
-}
-
-@media(max-width:500px){
-
-    .main{
-        padding:15px;
-    }
-
-    header h1{
-        font-size:24px;
-    }
-
-    header p{
-        font-size:14px;
-    }
-
-    thead th,
-    tbody td{
-        padding:14px;
-        font-size:13px;
+        min-width:850px;
     }
 
 }

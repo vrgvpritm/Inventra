@@ -1,189 +1,166 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
-import "./Sales.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-
-const API_URL = "http://localhost:5000/api/sales";
+import MainLayout from "../layouts/MainLayout";
+import Navbar from "../components/Navbar";
+import api from "../api/axios";
+import "../styles/Sales.css";
+import { FaPlus, FaMagnifyingGlass } from "react-icons/fa6";
 
 function Sales() {
-  const [sales, setSales] = useState([]);
-  const [search, setSearch] = useState("");
 
-  useEffect(() => {
-    fetchSales();
-  }, []);
+    const [sales, setSales] = useState([]);
+    const [search, setSearch] = useState("");
 
-  const fetchSales = async () => {
-    try {
-      const res = await axios.get(API_URL);
-      setSales(res.data);
-    } catch (err) {
-      console.log(err);
-      alert("Cannot connect to backend");
-    }
-  };
+    useEffect(() => {
 
-  const filteredSales = sales.filter((sale) =>
-    (
-      sale.name +
-      sale.sku +
-      sale.sale_date
-    )
-      .toLowerCase()
-      .includes(search.toLowerCase())
-  );
+        fetchSales();
 
-  return (
-    <div className="container">
+    }, []);
 
-      <aside className="sidebar">
+    const fetchSales = async () => {
 
-        <div className="logo">
-          <i className="fa-solid fa-cubes-stacked"></i>
-          <h2>Inventra</h2>
-        </div>
+        try {
 
-        <ul>
+            const res = await api.get("/sales");
 
-          <li>
-            <Link to="/dashboard">
-              <i className="fa-solid fa-house"></i>
-              <span>Dashboard</span>
-            </Link>
-          </li>
+            setSales(res.data);
 
-          <li>
-            <Link to="/products">
-              <i className="fa-solid fa-box"></i>
-              <span>Products</span>
-            </Link>
-          </li>
+        }
 
-          <li>
-            <Link to="/inventory">
-              <i className="fa-solid fa-warehouse"></i>
-              <span>Inventory</span>
-            </Link>
-          </li>
+        catch (err) {
 
-          <li>
-            <Link to="/suppliers">
-              <i className="fa-solid fa-truck"></i>
-              <span>Suppliers</span>
-            </Link>
-          </li>
+            console.log(err);
 
-          <li className="active">
-            <Link to="/sales">
-              <i className="fa-solid fa-cart-shopping"></i>
-              <span>Sales</span>
-            </Link>
-          </li>
+            alert("Unable to load sales");
 
-          <li>
-            <Link to="/reports">
-              <i className="fa-solid fa-chart-column"></i>
-              <span>Reports</span>
-            </Link>
-          </li>
+        }
 
-        </ul>
+    };
 
-      </aside>
+    const filteredSales = sales.filter((sale) =>
 
-      <div className="main">
+        (
+            sale.name +
+            sale.sku +
+            sale.sale_date
+        )
+            .toLowerCase()
+            .includes(search.toLowerCase())
 
-        <header>
+    );
 
-          <div>
-            <h1>Sales</h1>
-            <p>Manage customer sales</p>
-          </div>
+    return (
 
-          <button id="newSale">
-            <i className="fa-solid fa-plus"></i>
-            New Sale
-          </button>
+        <MainLayout>
 
-        </header>
+            <Navbar
+                title="Sales"
+                subtitle="Manage customer sales"
+            />
 
-        <div className="search">
+            <div className="toolbar">
 
-          <i className="fa-solid fa-magnifying-glass"></i>
+                <div className="search">
 
-          <input
-            type="text"
-            placeholder="Search sales..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
+                    <FaMagnifyingGlass />
 
-        </div>
+                    <input
+                        type="text"
+                        placeholder="Search sales..."
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                    />
 
-        <div className="table-container">
+                </div>
 
-          <table>
+            </div>
 
-            <thead>
+            <div className="table-container">
 
-              <tr>
-                <th>ID</th>
-                <th>Product</th>
-                <th>SKU</th>
-                <th>Quantity</th>
-                <th>Price</th>
-                <th>Total</th>
-                <th>Date</th>
-              </tr>
+                <table>
 
-            </thead>
+                    <thead>
 
-            <tbody>
-                              {filteredSales.length > 0 ? (
-                filteredSales.map((sale) => (
-                  <tr key={sale.id}>
+                        <tr>
 
-                    <td>{sale.id}</td>
+                            <th>ID</th>
+                            <th>Product</th>
+                            <th>SKU</th>
+                            <th>Quantity</th>
+                            <th>Price</th>
+                            <th>Total</th>
+                            <th>Date</th>
 
-                    <td>{sale.name}</td>
+                        </tr>
 
-                    <td>{sale.sku}</td>
+                    </thead>
 
-                    <td>{sale.quantity}</td>
+                    <tbody>
 
-                    <td>₹{Number(sale.selling_price).toLocaleString()}</td>
+                        {
 
-                    <td>
-                      ₹{Number(sale.total).toLocaleString()}
-                    </td>
+                            filteredSales.length > 0 ?
 
-                    <td>
-                      {new Date(sale.sale_date).toLocaleDateString()}
-                    </td>
+                                filteredSales.map((sale) => (
 
-                  </tr>
-                ))
-              ) : (
-                <tr>
+                                    <tr key={sale.id}>
 
-                  <td colSpan="7" style={{ textAlign: "center" }}>
-                    No Sales Found
-                  </td>
+                                        <td>{sale.id}</td>
 
-                </tr>
-              )}
+                                        <td>{sale.name}</td>
 
-            </tbody>
+                                        <td>{sale.sku}</td>
 
-          </table>
+                                        <td>{sale.quantity}</td>
 
-        </div>
+                                        <td>
 
-      </div>
+                                            ₹{Number(sale.selling_price).toLocaleString()}
 
-    </div>
-  );
+                                        </td>
+
+                                        <td>
+
+                                            ₹{Number(sale.total).toLocaleString()}
+
+                                        </td>
+
+                                        <td>
+
+                                            {new Date(sale.sale_date).toLocaleDateString()}
+
+                                        </td>
+
+                                    </tr>
+
+                                ))
+
+                                :
+
+                                <tr>
+
+                                    <td
+                                        colSpan="7"
+                                        className="loading"
+                                    >
+
+                                        No Sales Found
+
+                                    </td>
+
+                                </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
+
+            </div>
+
+        </MainLayout>
+
+    );
+
 }
 
 export default Sales;

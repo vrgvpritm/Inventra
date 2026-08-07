@@ -2,15 +2,27 @@ const db = require("../config/db");
 
 exports.getLowStock = (req, res) => {
 
-    db.query(
-        "SELECT * FROM products WHERE stock<10 ORDER BY stock ASC",
-        (err, result) => {
+    const sql = `
+        SELECT *
+        FROM products
+        WHERE stock <= 10
+        ORDER BY stock ASC
+    `;
 
-            if (err) return res.status(500).json(err);
+    db.query(sql, (err, result) => {
 
-            res.json(result);
+        if (err) {
+
+            console.error(err);
+
+            return res.status(500).json({
+                message: "Failed to fetch low stock products"
+            });
 
         }
-    );
+
+        res.status(200).json(result);
+
+    });
 
 };

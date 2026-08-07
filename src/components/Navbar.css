@@ -1,0 +1,85 @@
+.topbar{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:35px;
+}
+
+.topbar-left h1{
+    font-size:34px;
+    color:#0f172a;
+    font-weight:700;
+}
+
+.topbar-left p{
+    margin-top:5px;
+    color:#64748b;
+    font-size:15px;
+}
+
+.topbar-right{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.profile-btn,
+.logout-btn{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    border:none;
+    cursor:pointer;
+    padding:13px 22px;
+    border-radius:12px;
+    font-size:15px;
+    font-weight:600;
+    transition:.3s;
+}
+
+.profile-btn{
+    background:#2563eb;
+    color:#fff;
+}
+
+.profile-btn:hover{
+    background:#1d4ed8;
+    transform:translateY(-3px);
+}
+
+.logout-btn{
+    background:#ef4444;
+    color:#fff;
+}
+
+.logout-btn:hover{
+    background:#dc2626;
+    transform:translateY(-3px);
+}
+
+.profile-btn svg,
+.logout-btn svg{
+    font-size:16px;
+}
+
+@media(max-width:768px){
+
+    .topbar{
+        flex-direction:column;
+        align-items:flex-start;
+        gap:20px;
+    }
+
+    .topbar-right{
+        width:100%;
+        justify-content:flex-start;
+        flex-wrap:wrap;
+    }
+
+    .profile-btn,
+    .logout-btn{
+        flex:1;
+        justify-content:center;
+    }
+
+}

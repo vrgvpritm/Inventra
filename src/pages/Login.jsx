@@ -1,212 +1,282 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import api from "../api/axios";
 import {
-  FaCubesStacked,
-  FaBox,
-  FaChartLine,
-  FaUsers,
-  FaFileInvoice,
-  FaEnvelope,
-  FaLock,
-  FaEye,
-  FaEyeSlash,
-  FaGoogle,
-  FaGithub
+    FaCubesStacked,
+    FaBox,
+    FaChartLine,
+    FaUsers,
+    FaFileInvoice,
+    FaEnvelope,
+    FaLock,
+    FaEye,
+    FaEyeSlash
 } from "react-icons/fa6";
-import "../styles/login.css";
+import "../styles/Login.css";
 
 export default function Login() {
-  const navigate = useNavigate();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const [loading, setLoading] = useState(false);
+    const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [showPassword, setShowPassword] = useState(false);
+    const [loading, setLoading] = useState(false);
 
-    if (!email || !password) {
-      alert("Please fill all fields");
-      return;
-    }
+    const handleLogin = async (e) => {
 
-    try {
-      setLoading(true);
+        e.preventDefault();
 
-      const res = await axios.post(
-        "http://localhost:5000/api/auth/login",
-        {
-          email,
-          password
+        if (!email || !password) {
+
+            alert("Please fill all fields");
+            return;
+
         }
-      );
 
-      localStorage.setItem("token", res.data.token);
-      localStorage.setItem("user", JSON.stringify(res.data.user));
+        try {
 
-      navigate("/dashboard");
-    } catch (err) {
-      alert(err.response?.data?.message || "Login Failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+            setLoading(true);
 
-  return (
-    <>
+            const res = await api.post("/auth/login", {
+                email,
+                password
+            });
 
-      <div className="background">
-        <div className="shape shape1"></div>
-        <div className="shape shape2"></div>
-        <div className="shape shape3"></div>
-      </div>
+            if (!res.data.success) {
 
-      <div className="container">
+                alert(res.data.message);
+                return;
 
-        <div className="left">
+            }
 
-          <div className="brand">
+            localStorage.setItem(
+                "token",
+                res.data.token
+            );
 
-            <div className="logo">
-              <FaCubesStacked />
-            </div>
+            localStorage.setItem(
+                "user",
+                JSON.stringify(res.data.user)
+            );
 
-            <h1>Inventra</h1>
+            // Reload app so protected routes detect token
+            window.location.href = "/dashboard";
 
-            <p>Inventory Management System</p>
+        }
 
-            <div className="features">
+        catch (err) {
 
-              <div className="feature">
-                <FaBox />
-                <span>Manage Products</span>
-              </div>
+            console.log(err);
 
-              <div className="feature">
-                <FaChartLine />
-                <span>Track Inventory</span>
-              </div>
+            alert(
+                err.response?.data?.message ||
+                "Login Failed"
+            );
 
-              <div className="feature">
-                <FaUsers />
-                <span>Supplier Management</span>
-              </div>
+        }
 
-              <div className="feature">
-                <FaFileInvoice />
-                <span>Sales Reports</span>
-              </div>
+        finally {
 
-            </div>
+            setLoading(false);
 
-          </div>
+        }
 
-        </div>
+    };
 
-        <div className="right">
+    return (
 
-          <div className="login-card">
+        <>
 
-            <div className="card-top">
+            <div className="background">
 
-              <h2>Welcome Back</h2>
-
-              <p>Sign in to continue to Inventra</p>
+                <div className="shape shape1"></div>
+                <div className="shape shape2"></div>
+                <div className="shape shape3"></div>
 
             </div>
 
-            <form onSubmit={handleLogin}>
+            <div className="container">
 
-              <div className="input-group">
+                <div className="left">
 
-                <label>Email Address</label>
+                    <div className="brand">
 
-                <div className="input-box">
+                        <div className="logo">
 
-                  <FaEnvelope />
+                            <FaCubesStacked />
 
-                  <input
-                    type="email"
-                    placeholder="Enter your email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
+                        </div>
+
+                        <h1>Inventra</h1>
+
+                        <p>Inventory Management System</p>
+
+                        <div className="features">
+
+                            <div className="feature">
+
+                                <FaBox />
+
+                                <span>Manage Products</span>
+
+                            </div>
+
+                            <div className="feature">
+
+                                <FaChartLine />
+
+                                <span>Track Inventory</span>
+
+                            </div>
+
+                            <div className="feature">
+
+                                <FaUsers />
+
+                                <span>Supplier Management</span>
+
+                            </div>
+
+                            <div className="feature">
+
+                                <FaFileInvoice />
+
+                                <span>Sales Reports</span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
-              </div>
+                <div className="right">
 
-              <div className="input-group">
+                    <div className="login-card">
 
-                <label>Password</label>
+                        <div className="card-top">
 
-                <div className="input-box">
+                            <h2>Welcome Back</h2>
 
-                  <FaLock />
+                            <p>Sign in to continue to Inventra</p>
 
-                  <input
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                  />
+                        </div>
 
-                  <span
-                    id="togglePassword"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
-                    {showPassword ? <FaEyeSlash /> : <FaEye />}
-                  </span>
+                        <form onSubmit={handleLogin}>
+
+                            <div className="input-group">
+
+                                <label>Email Address</label>
+
+                                <div className="input-box">
+
+                                    <FaEnvelope />
+
+                                    <input
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        value={email}
+                                        onChange={(e) => setEmail(e.target.value)}
+                                        required
+                                    />
+
+                                </div>
+
+                            </div>
+
+                            <div className="input-group">
+
+                                <label>Password</label>
+
+                                <div className="input-box">
+
+                                    <FaLock />
+
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        placeholder="Enter your password"
+                                        value={password}
+                                        onChange={(e) => setPassword(e.target.value)}
+                                        required
+                                    />
+
+                                    <span
+                                        id="togglePassword"
+                                        onClick={() => setShowPassword(!showPassword)}
+                                    >
+
+                                        {showPassword
+                                            ? <FaEyeSlash />
+                                            : <FaEye />
+                                        }
+
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <div className="options">
+
+                                <label>
+
+                                    <input type="checkbox" />
+
+                                    Remember Me
+
+                                </label>
+
+                            </div>
+
+                            <button
+                                id="loginBtn"
+                                type="submit"
+                                disabled={loading}
+                            >
+
+                                {loading
+                                    ? "Signing In..."
+                                    : "Login"}
+
+                            </button>
+
+                            <p
+                                className="register-text"
+                                style={{
+                                    marginTop: "20px",
+                                    textAlign: "center"
+                                }}
+                            >
+
+                                Don't have an account?{" "}
+
+                                <span
+                                    style={{
+                                        color: "#2563eb",
+                                        cursor: "pointer",
+                                        fontWeight: "600"
+                                    }}
+                                    onClick={() => navigate("/register")}
+                                >
+
+                                    Register
+
+                                </span>
+
+                            </p>
+
+                        </form>
+
+                    </div>
 
                 </div>
 
-              </div>
-
-              <div className="options">
-
-                <label>
-                  <input type="checkbox" />
-                  Remember Me
-                </label>
-
-                <a href="/">Forgot Password?</a>
-
-              </div>
-
-              <button id="loginBtn" type="submit">
-
-                {loading ? "Signing In..." : "Login"}
-
-              </button>
-
-            </form>
-
-            <div className="divider">
-              <span>OR</span>
             </div>
 
-            <div className="social-login">
+        </>
 
-              <button className="google" type="button">
-                <FaGoogle />
-                Google
-              </button>
+    );
 
-              <button className="github" type="button">
-                <FaGithub />
-                GitHub
-              </button>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </>
-  );
 }

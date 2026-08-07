@@ -1,119 +1,157 @@
 import { useEffect, useState } from "react";
-import Sidebar from "../components/Sidebar";
-import axios from "axios";
-import { FaExclamationTriangle } from "react-icons/fa";
-import "./LowStock.css";
-
-const API_URL = "http://localhost:5000/api/low-stock";
+import api from "../api/axios";
+import MainLayout from "../layouts/MainLayout";
+import Navbar from "../components/Navbar";
+import "../styles/LowStock.css";
 
 function LowStock() {
 
     const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        loadProducts();
+
+        fetchLowStock();
+
     }, []);
 
-    const loadProducts = async () => {
+    const fetchLowStock = async () => {
+
         try {
-            const res = await axios.get(API_URL);
+
+            const res = await api.get("/low-stock");
+
             setProducts(res.data);
-        } catch (err) {
-            console.log(err);
+
         }
+
+        catch (err) {
+
+            console.log(err);
+
+        }
+
+        finally {
+
+            setLoading(false);
+
+        }
+
     };
 
     return (
-        <div className="container">
 
-            <Sidebar />
+        <MainLayout>
 
-            <div className="main">
+            <Navbar
+                title="Low Stock"
+                subtitle="Products that require immediate restocking"
+            />
 
-                <header>
+            <div className="table-container">
 
-                    <div>
-                        <h1>Low Stock Products</h1>
-                        <p>Products that need immediate restocking</p>
-                    </div>
+                <table>
 
-                </header>
+                    <thead>
 
-                <div className="table-container">
+                        <tr>
 
-                    <table>
+                            <th>#</th>
+                            <th>SKU</th>
+                            <th>Product</th>
+                            <th>Category</th>
+                            <th>Price</th>
+                            <th>Stock</th>
+                            <th>Status</th>
 
-                        <thead>
+                        </tr>
 
-                            <tr>
-                                <th>ID</th>
-                                <th>SKU</th>
-                                <th>Product</th>
-                                <th>Category</th>
-                                <th>Stock</th>
-                                <th>Status</th>
-                            </tr>
+                    </thead>
 
-                        </thead>
+                    <tbody>
 
-                        <tbody>
+                        {
 
-                            {products.length > 0 ? (
-
-                                products.map(product => (
-
-                                    <tr key={product.id}>
-
-                                        <td>{product.id}</td>
-
-                                        <td>{product.sku}</td>
-
-                                        <td>{product.name}</td>
-
-                                        <td>{product.category}</td>
-
-                                        <td>{product.stock}</td>
-
-                                        <td>
-
-                                            <span className="low-stock">
-
-                                                <FaExclamationTriangle />
-
-                                                Low Stock
-
-                                            </span>
-
-                                        </td>
-
-                                    </tr>
-
-                                ))
-
-                            ) : (
+                            loading ?
 
                                 <tr>
 
-                                    <td colSpan="6" className="empty">
+                                    <td
+                                        colSpan="7"
+                                        className="loading"
+                                    >
 
-                                        No Low Stock Products
+                                        Loading products...
 
                                     </td>
 
                                 </tr>
 
-                            )}
+                                :
 
-                        </tbody>
+                                products.length > 0 ?
 
-                    </table>
+                                    products.map((product, index) => (
 
-                </div>
+                                        <tr key={product.id}>
+
+                                            <td>{index + 1}</td>
+
+                                            <td>{product.sku || "-"}</td>
+
+                                            <td>{product.name}</td>
+
+                                            <td>{product.category || "-"}</td>
+
+                                            <td>
+
+                                                ₹{Number(product.price).toLocaleString()}
+
+                                            </td>
+
+                                            <td>{product.stock}</td>
+
+                                            <td>
+
+                                                <span className="low">
+
+                                                    Low Stock
+
+                                                </span>
+
+                                            </td>
+
+                                        </tr>
+
+                                    ))
+
+                                    :
+
+                                    <tr>
+
+                                        <td
+                                            colSpan="7"
+                                            className="loading"
+                                        >
+
+                                            No low stock products found.
+
+                                        </td>
+
+                                    </tr>
+
+                        }
+
+                    </tbody>
+
+                </table>
 
             </div>
 
-        </div>
+        </MainLayout>
+
     );
+
 }
 
 export default LowStock;

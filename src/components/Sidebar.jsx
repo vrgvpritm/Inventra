@@ -1,20 +1,17 @@
-import { Link, useLocation } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
-    FaCubes,
+    FaCubesStacked,
     FaHouse,
     FaBox,
     FaWarehouse,
+    FaTriangleExclamation,
     FaTruck,
     FaCartShopping,
-    FaChartColumn,
-    FaTriangleExclamation,
     FaGear
 } from "react-icons/fa6";
 import "./Sidebar.css";
 
 function Sidebar() {
-
-    const location = useLocation();
 
     return (
 
@@ -22,7 +19,11 @@ function Sidebar() {
 
             <div className="logo">
 
-                <FaCubes />
+                <div className="logo-icon">
+
+                    <FaCubesStacked />
+
+                </div>
 
                 <h2>Inventra</h2>
 
@@ -30,60 +31,109 @@ function Sidebar() {
 
             <ul>
 
-                <li className={location.pathname === "/dashboard" ? "active" : ""}>
-                    <Link to="/dashboard">
+                <li>
+
+                    <NavLink
+                        to="/dashboard"
+                        className={({ isActive }) => isActive ? "active" : ""}
+                    >
+
                         <FaHouse />
+
                         <span>Dashboard</span>
-                    </Link>
-                </li>
 
-                <li className={location.pathname === "/products" ? "active" : ""}>
-                    <Link to="/products">
-                        <FaBox />
-                        <span>Products</span>
-                    </Link>
-                </li>
+                    </NavLink>
 
-                <li className={location.pathname === "/inventory" ? "active" : ""}>
-                    <Link to="/inventory">
-                        <FaWarehouse />
-                        <span>Inventory</span>
-                    </Link>
-                </li>
-
-                <li className={location.pathname === "/suppliers" ? "active" : ""}>
-                    <Link to="/suppliers">
-                        <FaTruck />
-                        <span>Suppliers</span>
-                    </Link>
-                </li>
-
-                <li className={location.pathname === "/sales" ? "active" : ""}>
-                    <Link to="/sales">
-                        <FaCartShopping />
-                        <span>Sales</span>
-                    </Link>
-                </li>
-
-                <li className={location.pathname === "/reports" ? "active" : ""}>
-                    <Link to="/reports">
-                        <FaChartColumn />
-                        <span>Reports</span>
-                    </Link>
-                </li>
-
-                <li className={location.pathname === "/low-stock" ? "active" : ""}>
-                    <Link to="/low-stock">
-                        <FaTriangleExclamation />
-                        <span>Low Stock</span>
-                    </Link>
                 </li>
 
                 <li>
-                    <Link to="#">
+
+                    <NavLink
+                        to="/products"
+                        className={({ isActive }) => isActive ? "active" : ""}
+                    >
+
+                        <FaBox />
+
+                        <span>Products</span>
+
+                    </NavLink>
+
+                </li>
+
+                <li>
+
+                    <NavLink
+                        to="/inventory"
+                        className={({ isActive }) => isActive ? "active" : ""}
+                    >
+
+                        <FaWarehouse />
+
+                        <span>Inventory</span>
+
+                    </NavLink>
+
+                </li>
+
+                <li>
+
+                    <NavLink
+                        to="/low-stock"
+                        className={({ isActive }) => isActive ? "active" : ""}
+                    >
+
+                        <FaTriangleExclamation />
+
+                        <span>Low Stock</span>
+
+                    </NavLink>
+
+                </li>
+
+                <li>
+
+                    <NavLink
+                        to="/suppliers"
+                        className={({ isActive }) => isActive ? "active" : ""}
+                    >
+
+                        <FaTruck />
+
+                        <span>Suppliers</span>
+
+                    </NavLink>
+
+                </li>
+
+                <li>
+
+                    <NavLink
+                        to="/sales"
+                        className={({ isActive }) => isActive ? "active" : ""}
+                    >
+
+                        <FaCartShopping />
+
+                        <span>Sales</span>
+
+                    </NavLink>
+
+                </li>
+
+                <li>
+
+                    <NavLink
+                        to="/settings"
+                        className={({ isActive }) => isActive ? "active" : ""}
+                    >
+
                         <FaGear />
+
                         <span>Settings</span>
-                    </Link>
+
+                    </NavLink>
+
                 </li>
 
             </ul>
@@ -91,6 +141,7 @@ function Sidebar() {
         </aside>
 
     );
+
 }
 
 export default Sidebar;

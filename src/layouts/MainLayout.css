@@ -1,0 +1,31 @@
+.container{
+    display:flex;
+    min-height:100vh;
+    background:#f1f5f9;
+}
+
+.main{
+    flex:1;
+    margin-left:270px;
+    padding:35px;
+    min-height:100vh;
+    transition:.3s;
+}
+
+@media(max-width:900px){
+
+    .main{
+        margin-left:90px;
+        padding:30px;
+    }
+
+}
+
+@media(max-width:768px){
+
+    .main{
+        margin-left:0;
+        padding:20px;
+    }
+
+}

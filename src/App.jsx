@@ -1,69 +1,149 @@
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import {
+    BrowserRouter,
+    Routes,
+    Route,
+    Navigate
+} from "react-router-dom";
 
 import Login from "./pages/Login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Products from "./pages/Products";
 import Inventory from "./pages/Inventory";
 import Suppliers from "./pages/Suppliers";
 import Sales from "./pages/Sales";
-import Reports from "./pages/Reports";
 import LowStock from "./pages/LowStock";
+import Settings from "./pages/Settings";
+import Profile from "./pages/Profile";
+
+function PrivateRoute({ children }) {
+
+    const token = localStorage.getItem("token");
+
+    return token
+        ? children
+        : <Navigate to="/" replace />;
+
+}
+
+function PublicRoute({ children }) {
+
+    const token = localStorage.getItem("token");
+
+    return token
+        ? <Navigate to="/dashboard" replace />
+        : children;
+
+}
 
 function App() {
 
-  const token = localStorage.getItem("token");
+    return (
 
-  return (
+        <BrowserRouter>
 
-    <BrowserRouter>
+            <Routes>
 
-      <Routes>
+                <Route
+                    path="/"
+                    element={
+                        <PublicRoute>
+                            <Login />
+                        </PublicRoute>
+                    }
+                />
 
-        <Route
-          path="/"
-          element={token ? <Navigate to="/dashboard" /> : <Login />}
-        />
+                <Route
+                    path="/register"
+                    element={
+                        <PublicRoute>
+                            <Register />
+                        </PublicRoute>
+                    }
+                />
 
-        <Route
-          path="/dashboard"
-          element={token ? <Dashboard /> : <Navigate to="/" />}
-        />
+                <Route
+                    path="/dashboard"
+                    element={
+                        <PrivateRoute>
+                            <Dashboard />
+                        </PrivateRoute>
+                    }
+                />
 
-        <Route
-          path="/products"
-          element={token ? <Products /> : <Navigate to="/" />}
-        />
+                <Route
+                    path="/products"
+                    element={
+                        <PrivateRoute>
+                            <Products />
+                        </PrivateRoute>
+                    }
+                />
 
-        <Route
-          path="/inventory"
-          element={token ? <Inventory /> : <Navigate to="/" />}
-        />
+                <Route
+                    path="/inventory"
+                    element={
+                        <PrivateRoute>
+                            <Inventory />
+                        </PrivateRoute>
+                    }
+                />
 
-        <Route
-          path="/suppliers"
-          element={token ? <Suppliers /> : <Navigate to="/" />}
-        />
+                <Route
+                    path="/suppliers"
+                    element={
+                        <PrivateRoute>
+                            <Suppliers />
+                        </PrivateRoute>
+                    }
+                />
 
-        <Route
-          path="/sales"
-          element={token ? <Sales /> : <Navigate to="/" />}
-        />
+                <Route
+                    path="/sales"
+                    element={
+                        <PrivateRoute>
+                            <Sales />
+                        </PrivateRoute>
+                    }
+                />
 
-        <Route
-          path="/reports"
-          element={token ? <Reports /> : <Navigate to="/" />}
-        />
+                <Route
+                    path="/low-stock"
+                    element={
+                        <PrivateRoute>
+                            <LowStock />
+                        </PrivateRoute>
+                    }
+                />
 
-        <Route
-          path="/low-stock"
-          element={token ? <LowStock /> : <Navigate to="/" />}
-        />
+                <Route
+                    path="/settings"
+                    element={
+                        <PrivateRoute>
+                            <Settings />
+                        </PrivateRoute>
+                    }
+                />
 
-      </Routes>
+                <Route
+                    path="/profile"
+                    element={
+                        <PrivateRoute>
+                            <Profile />
+                        </PrivateRoute>
+                    }
+                />
 
-    </BrowserRouter>
+                <Route
+                    path="*"
+                    element={<Navigate to="/" replace />}
+                />
 
-  );
+            </Routes>
+
+        </BrowserRouter>
+
+    );
 
 }
 
