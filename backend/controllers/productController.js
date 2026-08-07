@@ -4,18 +4,18 @@ exports.getProducts = (req, res) => {
 
     db.query(
         `SELECT
-        products.id,
-        products.name,
-        sku,
-        categories.name AS category,
-        suppliers.supplier_name AS supplier,
-        price,
-        stock
+            products.id,
+            products.name,
+            sku,
+            categories.name AS category,
+            suppliers.supplier_name AS supplier,
+            price,
+            stock
         FROM products
         LEFT JOIN categories
-        ON products.category_id=categories.id
+            ON products.category_id = categories.id
         LEFT JOIN suppliers
-        ON products.supplier_id=suppliers.id`,
+            ON products.supplier_id = suppliers.id`,
         (err, result) => {
 
             if (err) {
@@ -38,7 +38,9 @@ exports.searchProducts = (req, res) => {
         [keyword, keyword],
         (err, result) => {
 
-            if (err) return res.status(500).json(err);
+            if (err) {
+                return res.status(500).json(err);
+            }
 
             res.json(result);
 
@@ -50,7 +52,7 @@ exports.searchProducts = (req, res) => {
 exports.getProduct = (req, res) => {
 
     db.query(
-        "SELECT * FROM products WHERE id=?",
+        "SELECT * FROM products WHERE id = ?",
         [req.params.id],
         (err, result) => {
 
@@ -65,10 +67,9 @@ exports.getProduct = (req, res) => {
 
 };
 
-console.log(req.body);
-
-
 exports.addProduct = (req, res) => {
+
+    console.log(req.body);
 
     const {
         name,
@@ -82,8 +83,8 @@ exports.addProduct = (req, res) => {
 
     db.query(
         `INSERT INTO products
-        (name,sku,category_id,supplier_id,price,stock,description)
-        VALUES(?,?,?,?,?,?,?)`,
+        (name, sku, category_id, supplier_id, price, stock, description)
+        VALUES (?, ?, ?, ?, ?, ?, ?)`,
         [
             name,
             sku,
@@ -124,14 +125,14 @@ exports.updateProduct = (req, res) => {
     db.query(
         `UPDATE products
         SET
-        name=?,
-        sku=?,
-        category_id=?,
-        supplier_id=?,
-        price=?,
-        stock=?,
-        description=?
-        WHERE id=?`,
+            name = ?,
+            sku = ?,
+            category_id = ?,
+            supplier_id = ?,
+            price = ?,
+            stock = ?,
+            description = ?
+        WHERE id = ?`,
         [
             name,
             sku,
@@ -161,7 +162,7 @@ exports.updateProduct = (req, res) => {
 exports.deleteProduct = (req, res) => {
 
     db.query(
-        "DELETE FROM products WHERE id=?",
+        "DELETE FROM products WHERE id = ?",
         [req.params.id],
         (err) => {
 
@@ -176,6 +177,5 @@ exports.deleteProduct = (req, res) => {
 
         }
     );
-    
 
 };
